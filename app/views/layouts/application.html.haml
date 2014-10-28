@@ -7,7 +7,7 @@
     = javascript_include_tag 'application'
     = csrf_meta_tags
 
-  %body
+  %body{ class: "#{current_role} #{controller_name} #{action_name}" }
     = render "layouts/partials/header"
     = render "layouts/partials/navigation"
 
