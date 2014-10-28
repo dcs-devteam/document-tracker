@@ -1,0 +1,123 @@
+// HEADER PARTIAL
+#site-logo
+  float: left
+  font-size: 2.4rem
+  font-weight: bold
+  line-height: 2.8rem
+  letter-spacing: -2px
+  color: #555555
+  text-decoration: none
+  
+  &:hover,
+  &:focus
+    color: #444444
+
+header#main-header
+  text-align: right
+  padding: 15px
+  font-size: 0
+
+  p
+    display: inline-block
+    font-size: 1.4rem
+
+    &.signed-out-notice
+      margin-right: 10px
+
+  .pill-button
+    vertical-align: top
+    margin: 5px 8px 0 0
+    border-color: transparent
+
+  .current-user
+
+    .button
+      font-size: 1.3rem
+      text-transform: none
+
+      &:first-child
+        padding: 0 15px
+
+    .dropdown-trigger
+      background-image: image-url("/assets/gear.png")
+      background-size: 85%
+
+    .dropdown-item
+      text-align: right
+
+  #notifications
+    background-image: none
+
+    &:before
+      content: attr(data-count)
+      position: absolute
+      top: 3px
+      left: 3px
+      right: 3px
+      bottom: 3px
+      background-color: #cccccc
+      border-radius: 2px
+      text-align: center
+      font-weight: bold
+      line-height: 2.1rem
+      letter-spacing: -1px
+      color: #555555
+
+    &.notify:before
+      color: #ffffff
+      background-color: #d14836
+
+    .dropdown
+      min-width: 250px
+
+      .dropdown-item
+        max-width: 250px
+        line-height: 1.5rem
+        text-align: left
+        padding: 7px 10px 8px 10px
+        white-space: pre-wrap
+
+        &.no-notifications
+          text-align: center
+
+
+
+// NAVIGATION PARTIAL
+ul.horizontal-menu
+  background-color: #f5f5f5
+  border-top: 1px solid #e5e5e5
+  border-bottom: 1px solid #e5e5e5
+  padding: 0 30px
+
+  li
+    display: inline-block
+    margin-right: 16px
+
+    a
+      display: block
+      font-size: 1.2rem
+      text-transform: uppercase
+      text-decoration: none
+      line-height: 3.7rem
+      color: #666666
+
+      &:hover,
+      &:focus
+        color: #444444
+
+      &.current
+        color: #4285f4
+
+
+
+// FOOTER PARTIAL
+footer#main-footer
+  height: 40px
+  background-color: #f5f5f5
+  border-top: 1px solid #e5e5e5
+  padding: 0 30px
+  margin-top: -40px
+
+  small
+    line-height: 4rem
+    color: #444444

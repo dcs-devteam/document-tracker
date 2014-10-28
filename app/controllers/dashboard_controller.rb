@@ -2,6 +2,7 @@ class DashboardController < ApplicationController
   before_filter :authenticate_office!
 
   def index
+    @notifications = []
   end
 
   def switch

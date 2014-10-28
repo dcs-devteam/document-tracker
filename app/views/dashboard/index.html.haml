@@ -1,1 +1,16 @@
-%h1 Dashboard Index
+.page
+  %header.page-header
+    %h1.title Account Notifications
+
+  - @notifications.map { |n| n.created_at.strftime("%B %e, %Y") }.uniq.each do |date|
+    %section.page-section{ "data-date" => date }
+      %h2.section-title= date
+      %ul.listing
+        - @notifications.select { |n| n.created_at.strftime("%B %e, %Y") == date }.each do |notification|
+          %li.list-item= link_to notification.body.html_safe, notification.link, class: "item-label"
+
+  - if @notifications.empty?
+    %ul.listing
+      %li.empty-listing No notifications found.
+  - else
+    %button.button.plain-button#more-notifications{ "data-path" => "#" } More Notifications

@@ -8,6 +8,16 @@
     = csrf_meta_tags
 
   %body
-    %p.notification.notice= notice
-    %p.notification.alert= alert
-    = yield
+    = render "layouts/partials/header"
+    = render "layouts/partials/navigation"
+
+    #main-wrapper.clearfix
+      %main.expanded
+        #main-content
+          = yield
+        = render "layouts/partials/footer"
+
+      %aside#main-sidebar
+        .sidebar-exit &times;
+        .replaceable-content
+          = yield :sidebar
