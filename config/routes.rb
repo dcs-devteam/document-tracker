@@ -13,6 +13,12 @@ Rails.application.routes.draw do
 
   resources :office_staffs, except: [:new, :show, :edit]
 
+  namespace :admin do
+    resources :offices, only: [:index, :update, :destroy] do
+      patch :toggle_admin_privilege, on: :member
+    end
+  end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

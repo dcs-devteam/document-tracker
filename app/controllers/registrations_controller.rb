@@ -1,4 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
+  skip_before_filter :require_no_authentication
   before_filter :authenticate_office!
 
   def create
@@ -24,10 +25,10 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
     def sign_up_params
-      params.require(:office).permit(:name, :email)
+      params.require(:office).permit :name, :email
     end
 
     def account_update_params
-      params.require(:office).permit(:name, :email, :password, :password_confirmation, :current_password)
+      params.require(:office).permit :name, :email, :password, :password_confirmation, :current_password
     end
 end

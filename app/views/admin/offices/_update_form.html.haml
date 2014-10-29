@@ -1,0 +1,13 @@
+= form_for ["admin", office] do |f|
+  = render partial: "partials/form_errors", locals: { object: office }
+
+  .field
+    = f.label :name
+    = f.text_field :name
+
+  .field
+    = f.label :email
+    = f.email_field :email
+
+  .field.actions
+    = f.submit "Update Office Account", class: "button blue"

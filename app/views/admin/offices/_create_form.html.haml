@@ -1,0 +1,13 @@
+= form_for office, url: registration_path(resource_name) do |f|
+  = render partial: "partials/form_errors", locals: { object: office }
+
+  .field
+    = f.label :name
+    = f.text_field :name
+
+  .field
+    = f.label :email
+    = f.email_field :email
+
+  .field.actions
+    = f.submit "Create Office Account", class: "button blue"

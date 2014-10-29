@@ -8,4 +8,4 @@
     - elsif current_role == "admin"
       %li= link_to "Documents", "#", class: "#{"current" if current_page?("admin/documents")}"
       %li= link_to "Document Types", "#", class: "#{"current" if current_page?("admin/document_types")}"
-      %li= link_to "Offices", "#", class: "#{"current" if current_page?("admin/offices")}"
+      %li= link_to "Office Accounts", admin_offices_path, class: "#{"current" if current_page?("admin/offices")}"

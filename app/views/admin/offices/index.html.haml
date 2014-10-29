@@ -1,0 +1,26 @@
+.page
+  .page-header
+    %h1.title Office Accounts
+    .page-actions
+      %button.button.blue.sidebar-trigger{ "data-target" => "#create-office-account" } Create Office Account
+
+      #create-office-account.hidden
+        %h2.sidebar-title Create Office Account
+        = render partial: "admin/offices/create_form", locals: { office: @office }
+
+  %ul.listing
+    - @offices.each do |office|
+      %li.list-item
+        = link_to office.name, "#", class: "item-label"
+        .item-actions
+          = link_to "Admin", toggle_admin_privilege_admin_office_path(office), method: :patch, class: "pill-button #{admin_button_class(office)}"
+          = link_to "Edit", "#", data: { target: "#edit-office-#{office.id}" }, class: "pill-button sidebar-trigger"
+          = link_to "Delete", admin_office_path(office), method: :delete, data: { confirm: "Are you sure you want to delete this office account?" }, class: "pill-button"
+
+          .hidden{ id: "edit-office-#{office.id}" }
+            %h2.sidebar-title Edit Office Account
+            - object = @flash_office == office ? @flash_office : office
+            = render partial: "admin/offices/update_form", locals: { office: object }
+
+    - if @offices.empty?
+      %li.empty-listing No office accounts found.
