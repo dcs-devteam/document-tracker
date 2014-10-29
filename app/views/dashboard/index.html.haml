@@ -10,7 +10,6 @@
           %li.list-item= link_to notification.body.html_safe, notification.link, class: "item-label"
 
   - if @notifications.empty?
-    %ul.listing
-      %li.empty-listing No notifications found.
+    %p.empty-listing No notifications found.
   - else
     %button.button.plain-button#more-notifications{ "data-path" => "#" } More Notifications

@@ -4,7 +4,7 @@
     - if current_role == "office"
       %li= link_to "Your Documents", "#", class: "#{"current" if current_page?("documents")}"
       %li= link_to "Routed Documents", "#", class: "#{"current" if current_page?("office/documents")}"
-      %li= link_to "Office Staffs", "#", class: "#{"current" if current_page?("office_staffs")}"
+      %li= link_to "Office Staffs", office_staffs_path, class: "#{"current" if current_page?("office_staffs")}"
     - elsif current_role == "admin"
       %li= link_to "Documents", "#", class: "#{"current" if current_page?("admin/documents")}"
       %li= link_to "Document Types", "#", class: "#{"current" if current_page?("admin/document_types")}"

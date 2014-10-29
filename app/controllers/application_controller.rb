@@ -15,4 +15,14 @@ class ApplicationController < ActionController::Base
       return 1 if current_role == "admin"
       return 0
     end
+
+    def fake_flash(key, value = nil)
+      if value
+        Rails.cache.write key, value
+      else
+        object = Rails.cache.read key
+        Rails.cache.delete key
+        object
+      end
+    end
 end

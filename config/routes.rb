@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get "/dashboard", to: "dashboard#index", as: "dashboard"
   post "/switch/:role", to: "dashboard#switch", as: "switch"
 
+  resources :office_staffs, except: [:new, :show, :edit]
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

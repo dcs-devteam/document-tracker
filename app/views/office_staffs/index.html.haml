@@ -1,0 +1,25 @@
+.page
+  .page-header
+    %h1.title Office Staffs
+    .page-actions
+      %button.button.blue.sidebar-trigger{ "data-target" => "#create-office-staff" } Create Office Staff
+
+      #create-office-staff.hidden
+        %h2.sidebar-title Create Office Staff
+        = render partial: "office_staffs/create_form", locals: { office_staff: @office_staff }
+
+  %ul.listing
+    - @office_staffs.each do |staff|
+      %li.list-item
+        %span.item-label= staff.name
+        .item-options
+          = link_to "Edit", "#", class: "pill-button sidebar-trigger", data: { target: "#edit-office-staff-#{staff.id}" }
+          = link_to "Delete", office_staff_path(staff), method: :delete, data: { confirm: "Are you sure you want to delete this office staff?" }, class: "pill-button"
+
+          .hidden{ id: "edit-office-staff-#{staff.id}" }
+            %h2.sidebar-title Edit Office Staff
+            - object = @flash_office_staff == staff ? @flash_office_staff : staff
+            = render partial: "office_staffs/update_form", locals: { office_staff: object }
+
+    - if @office_staffs.empty?
+      %li.empty-listing No office staffs found.

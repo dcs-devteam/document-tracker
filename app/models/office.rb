@@ -4,6 +4,8 @@ class Office < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :office_staffs, dependent: :destroy
+
   def admin?
     self.admin
   end

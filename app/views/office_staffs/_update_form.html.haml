@@ -1,0 +1,9 @@
+= form_for office_staff do |f|
+  = render partial: "partials/form_errors", locals: { object: office_staff }
+
+  .field
+    = f.label :name
+    = f.text_field :name
+
+  .field.actions
+    = f.submit "Update Office Staff", class: "button blue"
