@@ -27,7 +27,8 @@ class OfficeStaffsController < ApplicationController
   end
 
   def destroy
-    OfficeStaff.destroy params[:id]
+    office_staff = OfficeStaff.find params[:id]
+    office_staff.update! active: false
     redirect_to office_staffs_path, notice: "Office staff successfully deleted."
   end
 
