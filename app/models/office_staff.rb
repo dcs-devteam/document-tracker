@@ -3,5 +3,5 @@ class OfficeStaff < ActiveRecord::Base
 
   belongs_to :office
 
-  default_scope -> { where(active: true) }
+  scope :alive, -> { where(erased: false) }
 end

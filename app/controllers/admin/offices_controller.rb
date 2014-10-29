@@ -3,7 +3,7 @@ class Admin::OfficesController < ApplicationController
   before_filter :require_admin_access
 
   def index
-    @offices = Office.all
+    @offices = Office.alive
     @office = Office.new
     @flash_office = fake_flash(:office_update)
   end
@@ -18,12 +18,19 @@ class Admin::OfficesController < ApplicationController
   end
 
   def destroy
-    Office.destroy params[:id]
-    redirect_to admin_offices_path
+    office = Office.find params[:id]
+    if current_office == office
+      return redirect_to admin_offices_path, alert: "Only other admin accounts can delete your account."
+    end
+    office.update! erased: true
+    redirect_to admin_offices_path, notice: "Office account successfully deleted."
   end
 
   def toggle_admin_privilege
     office = Office.find params[:id]
+    if current_office == office
+      return redirect_to admin_offices_path, alert: "Only other admin accounts can grant/revoke your admin privileges."
+    end
     office.toggle_admin!
     redirect_to admin_offices_path
   end

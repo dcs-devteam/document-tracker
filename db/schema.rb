@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20141029111832) do
   create_table "office_staffs", force: true do |t|
     t.string   "name"
     t.integer  "office_id"
-    t.boolean  "active",     default: true
+    t.boolean  "erased",     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20141029111832) do
     t.string   "encrypted_password",     default: "",    null: false
     t.string   "name"
     t.boolean  "admin",                  default: false
+    t.boolean  "erased",                 default: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

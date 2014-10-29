@@ -2,7 +2,7 @@ class OfficeStaffsController < ApplicationController
   before_filter :authenticate_office!
 
   def index
-    @office_staffs = current_office.office_staffs
+    @office_staffs = current_office.office_staffs.alive
     @office_staff = fake_flash(:office_staff_create) || OfficeStaff.new
     @flash_office_staff = fake_flash :office_staff_update
   end
@@ -28,7 +28,7 @@ class OfficeStaffsController < ApplicationController
 
   def destroy
     office_staff = OfficeStaff.find params[:id]
-    office_staff.update! active: false
+    office_staff.update! erased: true
     redirect_to office_staffs_path, notice: "Office staff successfully deleted."
   end
 
