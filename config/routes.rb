@@ -11,12 +11,13 @@ Rails.application.routes.draw do
   get "/dashboard", to: "dashboard#index", as: "dashboard"
   post "/switch/:role", to: "dashboard#switch", as: "switch"
 
-  resources :office_staffs, except: [:new, :show, :edit]
+  resources :office_staffs, only: [:index, :create, :update, :destroy]
 
   namespace :admin do
     resources :offices, only: [:index, :update, :destroy] do
       patch :toggle_admin_privilege, on: :member
     end
+    resources :document_types, only: [:index, :show, :create, :update, :destroy]
   end
 
   # Example of regular route:

@@ -1,0 +1,19 @@
+#choices-list
+  .subfield
+    %span.circle.remover &times;
+    = select_tag "offices", options_for_select(offices)
+
+= form_for ["admin", document_type] do |f|
+  = render partial: "partials/form_errors", locals: { object: document_type }
+
+  .field
+    = f.label :name
+    = f.text_field :name
+
+  .field
+    = f.label :route
+    = link_to raw("<span class=\"circle\">&plus;</span>Add Office"), "#", class: "add-choices"
+
+  .field.actions
+    = f.hidden_field :route
+    = f.submit "Create Document Type", class: "button blue"

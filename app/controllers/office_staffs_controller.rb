@@ -1,5 +1,6 @@
 class OfficeStaffsController < ApplicationController
   before_filter :authenticate_office!
+  before_filter :require_office_access
 
   def index
     @office_staffs = current_office.office_staffs.alive
