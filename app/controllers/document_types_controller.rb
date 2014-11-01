@@ -4,7 +4,7 @@ class DocumentTypesController < ApplicationController
   before_filter :has_manage_privileges?, only: [:update, :destroy]
 
   def index
-    @document_types = DocumentType.defaults.alive + DocumentType.by(current_office).alive
+    @document_types = DocumentType.usable_by current_office
     @document_type = fake_flash(:document_type_create) || DocumentType.new
     @flash_document_type = fake_flash :document_type_update
   end

@@ -1,0 +1,18 @@
+.page
+  .page-header
+    .header-group
+      %h1.title= @document.name
+      %h2.subtitle= @document.owner
+    .page-actions
+      - if has_manage_privileges?(@document) and !@document.onhold?
+        = link_to "Edit", "#", data: { target: "#edit-document" }, class: "button blue sidebar-trigger"
+        = link_to "Delete", document_path(@document), method: :delete, data: { confirm: "Are you sure you want to delete this document?" }, class: "button red"
+
+      #edit-document.hidden
+        %h2.sidebar-title Edit Document
+        = render partial: "documents/update_form", locals: { document: @document }
+
+  - if @document.onhold?
+    = link_to "Edit", "#", data: { target: "#edit-document" }, class: "button blue sidebar-trigger"
+    = link_to "Delete", document_path(@document), method: :delete, data: { confirm: "Are you sure you want to delete this document?" }, class: "button red"
+    %button.button.green Release Document

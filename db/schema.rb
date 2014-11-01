@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141029164111) do
+ActiveRecord::Schema.define(version: 20141101052458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,18 @@ ActiveRecord::Schema.define(version: 20141029164111) do
     t.string   "route"
     t.integer  "owner_id"
     t.boolean  "erased",     default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "documents", force: true do |t|
+    t.string   "name"
+    t.integer  "document_type_id"
+    t.integer  "office_id"
+    t.string   "owner"
+    t.string   "tracking_number"
+    t.integer  "status",           default: 0
+    t.boolean  "erased",           default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

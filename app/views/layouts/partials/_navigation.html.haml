@@ -2,7 +2,7 @@
   %ul.horizontal-menu
     %li= link_to "Dashboard", dashboard_path, class: "#{current_page_class("dashboard")}"
     - if current_role == "office"
-      %li= link_to "Your Documents", "#", class: "#{current_page_class("documents")}"
+      %li= link_to "Your Documents", documents_path, class: "#{current_page_class("documents")}"
       %li= link_to "Routed Documents", "#", class: "#{current_page_class("office/documents")}"
       %li= link_to "Document Types", document_types_path, class: "#{current_page_class("document_types")}"
       %li= link_to "Office Staffs", office_staffs_path, class: "#{current_page_class("office_staffs")}"

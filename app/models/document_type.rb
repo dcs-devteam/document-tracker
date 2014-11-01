@@ -4,6 +4,7 @@ class DocumentType < ActiveRecord::Base
   scope :alive, -> { where(erased: false) }
   scope :defaults, -> { where(owner_id: nil) }
   scope :by, -> (office) { where(owner_id: office.id) }
+  scope :usable_by, -> (office) { defaults.alive + by(office).alive }
 
   belongs_to :owner
 

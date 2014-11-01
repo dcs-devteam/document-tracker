@@ -1,0 +1,17 @@
+= form_for document do |f|
+  = render partial: "partials/form_errors", locals: { object: document }
+
+  .field
+    = f.label :name
+    = f.text_field :name
+
+  .field
+    = f.label :document_type_id
+    = f.select :document_type_id, options_for_select(document_types_options)
+
+  .field
+    = f.label :owner
+    = f.select :owner, options_for_select(office_staffs_options)
+
+  .field.actions
+    = f.submit "Update Document", class: "button blue"

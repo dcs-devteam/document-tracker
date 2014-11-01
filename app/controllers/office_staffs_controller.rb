@@ -36,6 +36,6 @@ class OfficeStaffsController < ApplicationController
   private
 
     def office_staff_params
-      params.require(:office_staff).permit(:name)
+      params.require(:office_staff).permit :name
     end
 end

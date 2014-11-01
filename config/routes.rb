@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   resources :document_types, only: [:index, :show, :create, :update, :destroy]
   resources :office_staffs, only: [:index, :create, :update, :destroy]
+  resources :documents, only: [:index, :show, :create, :update, :destroy]
 
   namespace :admin do
     resources :offices, only: [:index, :update, :destroy] do
