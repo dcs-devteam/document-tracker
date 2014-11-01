@@ -9,6 +9,7 @@ class Office < ActiveRecord::Base
   scope :alive, -> { where(erased: false) }
 
   has_many :office_staffs, dependent: :destroy
+  has_many :document_types, dependent: :destroy
 
   def active_for_authentication?
     super and !self.erased

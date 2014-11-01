@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
     end
 
     def require_admin_access
-      if !office_signed_in? or !current_office.admin? and current_role != "admin"
+      if !office_signed_in? or !current_office.admin? or current_role != "admin"
         redirect_to dashboard_path, alert: "You need admin privileges to do that action."
       end
     end

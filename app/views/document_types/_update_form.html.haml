@@ -4,7 +4,7 @@
       %span.circle.remover &times;
       = select_tag "offices", options_for_select(offices)
 
-= form_for ["admin", document_type] do |f|
+= form_for document_type, url: document_type_singular_path(document_type), method: :patch do |f|
   = render partial: "partials/form_errors", locals: { object: document_type }
 
   .field

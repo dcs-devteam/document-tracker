@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20141029164111) do
   create_table "document_types", force: true do |t|
     t.string   "name"
     t.string   "route"
+    t.integer  "owner_id"
     t.boolean  "erased",     default: false
     t.datetime "created_at"
     t.datetime "updated_at"

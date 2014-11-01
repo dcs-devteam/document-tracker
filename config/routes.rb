@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get "/dashboard", to: "dashboard#index", as: "dashboard"
   post "/switch/:role", to: "dashboard#switch", as: "switch"
 
+  resources :document_types, only: [:index, :show, :create, :update, :destroy]
   resources :office_staffs, only: [:index, :create, :update, :destroy]
 
   namespace :admin do
