@@ -6,13 +6,11 @@ class DocumentTypesController < ApplicationController
   def index
     @document_types = DocumentType.defaults.alive + DocumentType.by(current_office).alive
     @document_type = fake_flash(:document_type_create) || DocumentType.new
-    @offices = Office.alive.map { |o| [o.name, o.id] }
     @flash_document_type = fake_flash :document_type_update
   end
 
   def show
     @document_type = DocumentType.find params[:id]
-    @offices = Office.alive.map { |o| [o.name, o.id] }
   end
 
   def create

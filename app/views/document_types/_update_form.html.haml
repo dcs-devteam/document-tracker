@@ -2,9 +2,9 @@
   #choices-list
     .subfield
       %span.circle.remover &times;
-      = select_tag "offices", options_for_select(offices)
+      = select_tag "offices", options_for_select(offices_options)
 
-= form_for document_type, url: document_type_singular_path(document_type), method: :patch do |f|
+= form_for document_type, url: current_document_type_path(document_type), method: :patch do |f|
   = render partial: "partials/form_errors", locals: { object: document_type }
 
   .field
@@ -16,7 +16,7 @@
     - document_type.offices.each do |office|
       .subfield
         %span.circle.remover &times;
-        = select_tag "offices[#{office.id}]", options_for_select(offices, office.id)
+        = select_tag "offices[#{office.id}]", options_for_select(offices_options, office.id)
     = link_to raw("<span class=\"circle\">&plus;</span>Add Office"), "#", class: "add-choices"
 
   .field.actions

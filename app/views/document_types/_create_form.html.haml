@@ -1,9 +1,9 @@
 #choices-list
   .subfield
     %span.circle.remover &times;
-    = select_tag "offices", options_for_select(offices)
+    = select_tag "offices", options_for_select(offices_options)
 
-= form_for document_type, url: document_type_plural_path do |f|
+= form_for document_type, url: current_document_types_path do |f|
   = render partial: "partials/form_errors", locals: { object: document_type }
 
   .field

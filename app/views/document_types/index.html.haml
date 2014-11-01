@@ -6,21 +6,21 @@
 
       #create-document-type.hidden
         %h2.sidebar-title Create Document type
-        = render partial: "document_types/create_form", locals: { document_type: @document_type, offices: @offices }
+        = render partial: "document_types/create_form", locals: { document_type: @document_type }
 
   %ul.listing
     - @document_types.each do |document_type|
       %li.list-item
-        = link_to document_type.name, document_type_singular_path(document_type), class: "item-label"
+        = link_to document_type.name, current_document_type_path(document_type), class: "item-label"
         - if has_manage_privileges?(document_type)
           .item-actions
             = link_to "Edit", "#", data: { target: "#edit-document-type-#{document_type.id}" }, class: "pill-button sidebar-trigger"
-            = link_to "Delete", document_type_singular_path(document_type), method: :delete, data: { confirm: "Are you sure you want to delete this document type?" }, class: "pill-button"
+            = link_to "Delete", current_document_type_path(document_type), method: :delete, data: { confirm: "Are you sure you want to delete this document type?" }, class: "pill-button"
 
             .hidden{ id: "edit-document-type-#{document_type.id}" }
               %h2.sidebar-title Edit Document Type
               - object = @flash_document_type == document_type ? @flash_document_type : document_type
-              = render partial: "document_types/update_form", locals: { document_type: object, offices: @offices, choices: false }
+              = render partial: "document_types/update_form", locals: { document_type: object, choices: false }
 
     - if @document_types.empty?
       %li.empty-listing No document types found.

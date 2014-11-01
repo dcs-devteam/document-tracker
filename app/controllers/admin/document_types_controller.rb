@@ -5,7 +5,6 @@ class Admin::DocumentTypesController < DocumentTypesController
   def index
     @document_types = DocumentType.defaults.alive
     @document_type = fake_flash(:document_type_create) || DocumentType.new
-    @offices = Office.alive.map { |o| [o.name, o.id] }
     @flash_document_type = fake_flash :document_type_update
   end
 
