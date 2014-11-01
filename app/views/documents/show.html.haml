@@ -3,6 +3,7 @@
     .header-group
       %h1.title= @document.name
       %h2.subtitle= @document.owner
+    %span.tracking-number= "TN: #{@document.tracking_number}"
     .page-actions
       - if has_manage_privileges?(@document) and !@document.onhold?
         = link_to "Edit", "#", data: { target: "#edit-document" }, class: "button blue sidebar-trigger"

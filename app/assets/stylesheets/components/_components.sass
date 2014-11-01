@@ -18,6 +18,16 @@
       .title,
       .subtitle
         display: block
+        
+    .filter-field
+      width: 150px
+      border-radius: 2px
+      -webkit-transition: width 250ms ease
+      -moz-transition: width 250ms ease
+      transition: width 250ms ease
+      
+      &:focus
+        width: 200px
   
   .title
     display: inline-block
@@ -36,6 +46,7 @@
 
     .button-group,
     > .button
+      vertical-align: top
       margin-left: 6px
 
     .button

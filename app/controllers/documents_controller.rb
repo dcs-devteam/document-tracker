@@ -20,7 +20,7 @@ class DocumentsController < ApplicationController
     document = Document.new document_params
     document.office_id = current_office.id
     if document.save
-      return redirect_to documents_path, notice: "Document successfully created."
+      return redirect_to document_path(document), notice: "Document successfully created."
     end
     fake_flash :document_create, document
     redirect_to documents_path

@@ -2,11 +2,11 @@
   = render partial: "partials/form_errors", locals: { object: document }
 
   .field
-    = f.label :name
+    = f.label :name, "Subject of the Document"
     = f.text_field :name
 
   .field
-    = f.label :document_type_id
+    = f.label :document_type_id, "Document Type"
     = f.select :document_type_id, options_for_select(document_types_options)
 
   .field

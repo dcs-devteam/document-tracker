@@ -17,6 +17,13 @@ Office.create(
   password: "password"
 )
 
+first = Office.first
+first.office_staffs.create(name: "Arnelle Balane")
+first.office_staffs.create(name: "Julia Camille Menchavez")
+first.office_staffs.create(name: "Emmanuel Lodovice")
+first.office_staffs.create(name: "Paulinko Kiel Labian")
+first.office_staffs.create(name: "Kevin Calingacion")
+
 DocumentType.create(
   name: "Purchase Request",
   route: "1,2,3"

@@ -3,6 +3,7 @@ $(document).ready ->
   sidebar.initialize()
   buttons.initialize()
   choices.initialize()
+  filters.initialize()
 
 
 
@@ -90,3 +91,22 @@ choices =
 
     $('#main-sidebar').on 'click', '.subfield .remover', ->
       $(this).parent().remove()
+
+
+
+# filtering of list items
+filters =
+  initialize: ->
+    $('.filter-field').on 'keyup', (e) ->
+      query = $(this).val()
+      target = $('.listing[data-filter-target="' + $(this).data('target') + '"]')
+      results = target.find('.list-item').filter(->
+        return $(this).find('*[data-filter-value]').filter(->
+          return $(this).data('filter-value').match('^' + query)
+        ).length > 0
+      ).removeClass('hidden')
+      target.find('.list-item').not(results).addClass('hidden')
+      if !results.length
+        target.find('.empty-listing').removeClass('hidden')
+      else
+        target.find('.empty-listing').addClass('hidden')
