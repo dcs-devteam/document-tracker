@@ -1,7 +1,9 @@
 class DocumentTypesController < ApplicationController
   before_filter :authenticate_office!
   before_filter :require_office_access
-  before_filter :has_manage_privileges?, only: [:update, :destroy]
+  before_filter :require_manage_privileges, only: [:update, :destroy]
+
+  helper_method :has_manage_privileges?
 
   def index
     @document_types = DocumentType.usable_by current_office
@@ -48,9 +50,13 @@ class DocumentTypesController < ApplicationController
       document_types_path
     end
 
-    def has_manage_privileges?
+    def has_manage_privileges?(document_type)
+      current_role == "admin" and document_type.owner.nil? or document_type.owned_by? current_office
+    end
+
+    def require_manage_privileges
       document_type = DocumentType.find params[:id]
-      if !document_type.owned_by?(current_office) and !(current_role == "admin" and document_type.owner.nil?)
+      unless has_manage_privileges? document_type
         redirect_to redirect_path, alert: "You need to have manage privileges for the document type to do that action."
       end
     end
