@@ -3,7 +3,7 @@ class Admin::OfficesController < ApplicationController
   before_filter :require_admin_access
 
   def index
-    @offices = Office.alive
+    @offices = Office.alive.order("id")
     @office = Office.new
     @flash_office = fake_flash(:office_update)
   end

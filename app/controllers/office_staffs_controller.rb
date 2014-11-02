@@ -3,7 +3,7 @@ class OfficeStaffsController < ApplicationController
   before_filter :require_office_access
 
   def index
-    @office_staffs = current_office.office_staffs.alive
+    @office_staffs = current_office.office_staffs.alive.order("id")
     @office_staff = fake_flash(:office_staff_create) || OfficeStaff.new
     @flash_office_staff = fake_flash :office_staff_update
   end
