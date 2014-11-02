@@ -7,7 +7,18 @@ class DocumentsController < ApplicationController
   helper_method :has_manage_privileges?
 
   def index
-    @documents = Document.by(current_office).alive.order("-id")
+    case params[:filter]
+    when "with_you"
+      @documents = current_office.documents.onhold.alive.order("-id")
+    when "being_processed"
+      @documents = current_office.documents.pending.alive.order("-id")
+    when "completed"
+      @documents = current_office.documents.approved.alive.order("-id")
+    when "rejected"
+      @documents = current_office.documents.rejected.alive.order("-id")
+    else
+      @documents = current_office.documents.alive.order("-id")
+    end
     @document = fake_flash(:document_create) || Document.new
     @flash_document = fake_flash :document_update
   end
