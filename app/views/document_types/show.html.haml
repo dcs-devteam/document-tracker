@@ -18,3 +18,27 @@
           %p.item-label= office.name
       - if @document_type.offices.empty?
         %li.empty-listing No suggested route.
+
+  %section.page-section
+    %h2.section-title Documents Of This Type
+    - if @document_type.documents.any?
+      %table
+        %tr
+          %th.medium Document Name
+          %th Owner
+          %th.thin Status
+          %th Current Location
+          %th.thin Actions
+
+        - @document_type.documents.each do |document|
+          %tr
+            %td.medium= document.name
+            %td.center= document.owner
+            %td.thin.center
+              - if document.current_route
+                %span{ class: "pill-button #{route_status_indicator(document.current_route.status)}" }= document.current_route.status
+            %td.center= document.current_route.office.name if document.current_route
+            %td.thin.center= link_to "View", current_document_path(document), class: "button mini blue" unless document.onhold?
+
+    - else
+      %p.empty-listing No documents found.

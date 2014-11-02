@@ -7,6 +7,7 @@ class DocumentType < ActiveRecord::Base
   scope :usable_by, -> (office) { defaults.alive + by(office).alive }
 
   belongs_to :owner, class_name: "Owner"
+  has_many :documents
 
   def offices
     offices = []

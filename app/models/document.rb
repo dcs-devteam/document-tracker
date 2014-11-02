@@ -28,6 +28,10 @@ class Document < ActiveRecord::Base
     end
   end
 
+  def current_route
+    self.document_routes.last
+  end
+
   def accessible_to?(office)
     self.office == office or self.document_routes.map { |r| r.office_id }.include? office.id
   end
