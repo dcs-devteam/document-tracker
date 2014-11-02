@@ -3,6 +3,11 @@
 .button-group
   - if current_page?("documents")
     = link_to "With You", current_documents_path(filter: "with_you"), class: "button #{"highlighted" if current_filter?("with_you")}"
-  = link_to "Being Processed", current_documents_path(filter: "being_processed"), class: "button #{"highlighted" if current_filter?("being_processed")}"
+  - if current_page?("office/documents")
+    = link_to "Incoming", current_documents_path(filter: "incoming"), class: "button #{"highlighted" if current_filter?("incoming")}"
+    = link_to "Received", current_documents_path(filter: "received"), class: "button #{"highlighted" if current_filter?("received")}"
+    = link_to "Released", current_documents_path(filter: "released"), class: "button #{"highlighted" if current_filter?("released")}"
+  - else
+    = link_to "Being Processed", current_documents_path(filter: "being_processed"), class: "button #{"highlighted" if current_filter?("being_processed")}"
   = link_to "Completed", current_documents_path(filter: "completed"), class: "button #{"highlighted" if current_filter?("completed")}"
   = link_to "Rejected", current_documents_path(filter: "rejected"), class: "button #{"highlighted" if current_filter?("rejected")}"

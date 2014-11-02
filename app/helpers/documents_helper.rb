@@ -15,6 +15,7 @@ module DocumentsHelper
 
   def current_documents_path(options = {})
     options.delete(:filter) if params[:filter] == options[:filter]
+    return office_documents_path(options) if controller_path == "office/documents"
     return documents_path(options) if current_role == "office"
     return admin_documents_path(options) if current_role == "admin"
   end
