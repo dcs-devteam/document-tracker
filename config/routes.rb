@@ -21,6 +21,10 @@ Rails.application.routes.draw do
     put :complete, on: :member
   end
 
+  namespace :office do
+    resources :documents, only: [:index, :show]
+  end
+
   namespace :admin do
     resources :offices, only: [:index, :update, :destroy] do
       patch :toggle_admin_privilege, on: :member

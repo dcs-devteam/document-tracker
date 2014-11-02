@@ -11,6 +11,8 @@ class Office < ActiveRecord::Base
   has_many :office_staffs, dependent: :destroy
   has_many :document_types, dependent: :destroy
   has_many :documents, dependent: :destroy
+  has_many :document_routes, dependent: :destroy
+  has_many :routed_documents, through: :document_routes, source: :document
 
   def active_for_authentication?
     super and !self.erased

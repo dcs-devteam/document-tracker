@@ -20,6 +20,7 @@ module DocumentsHelper
   end
 
   def current_document_path(document)
+    return office_document_path(document) if controller_path == "office/documents"
     return document_path(document) if current_role == "office"
     return admin_document_path(document) if current_role == "admin"
   end
@@ -30,6 +31,7 @@ module DocumentsHelper
 
   def page_title
     return "Your Documents" if controller_path == "documents"
+    return "Routed Documents" if controller_path == "office/documents"
     return "All Documents" if controller_path == "admin/documents"
   end
 end
