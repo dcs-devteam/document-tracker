@@ -28,6 +28,10 @@ class Document < ActiveRecord::Base
     end
   end
 
+  def accessible_to?(office)
+    self.office == office or self.document_routes.map { |r| r.office_id }.include? office.id
+  end
+
   private
 
     def generate_tracking_number

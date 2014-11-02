@@ -1,6 +1,7 @@
 class DocumentsController < ApplicationController
   before_filter :authenticate_office!
   before_filter :require_office_access
+  before_filter :require_access_privileges, only: [:show]
   before_filter :require_manage_privileges, only: [:update, :destroy]
 
   helper_method :has_manage_privileges?
@@ -61,7 +62,18 @@ class DocumentsController < ApplicationController
     def require_manage_privileges
       document = Document.find params[:id]
       unless has_manage_privileges? document
-        return redirect_to :back, "You need to have manage privileges for the document to do that action."
+        return redirect_to :back, alert: "You need to have manage privileges for the document to do that action."
+      end
+    end
+
+    def require_access_privileges
+      if Document.exists? params[:id]
+        document = Document.find params[:id]
+        unless current_role == "admin" or document.accessible_to? current_office
+          return redirect_to dashboard_path, alert: "You need to have access privileges for the document to do that action."
+        end
+      else
+        return redirect_to dashboard_path, alert: "The requested document does not exist."
       end
     end
 end

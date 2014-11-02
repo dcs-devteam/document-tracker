@@ -39,9 +39,10 @@
           %td.center= route.date_out.strftime("%b %e, %Y at %l:%M %P") if route.date_out
           - if current_role == "office"
             %td.thin.center
-              - if route.incoming?
-                = link_to "Receive", receive_document_route_path(route), method: :put, class: "button mini green"
-              - elsif route.received? and route.office == current_office
-                = render partial: "document_routes/release_form", locals: { route: route, document: @document, offices: @offices }
-                = link_to "Complete", complete_document_route_path(route), method: :put, class: "button mini blue"
-                = link_to "Reject", reject_document_route_path(route), method: :put, class: "button mini red"
+              - if route.office == current_office
+                - if route.incoming?
+                  = link_to "Receive", receive_document_route_path(route), method: :put, class: "button mini green"
+                - elsif route.received?
+                  = render partial: "document_routes/release_form", locals: { route: route, document: @document, offices: @offices }
+                  = link_to "Complete", complete_document_route_path(route), method: :put, class: "button mini blue"
+                  = link_to "Reject", reject_document_route_path(route), method: :put, class: "button mini red"
