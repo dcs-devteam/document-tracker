@@ -9,20 +9,38 @@ class Document < ActiveRecord::Base
 
   belongs_to :office
   belongs_to :document_type
+  has_many :document_routes
 
   before_validation :generate_tracking_number
+
+  def deviated_from_suggested_path?
+    current_path = self.document_routes.map { |r| r.office_id }.join ","
+    !self.document_type.route.match /^#{current_path}/
+  end
+
+  def suggested_next_route
+    unless self.deviated_from_suggested_path? or self.approved? or self.rejected?
+      current_path = self.document_routes.map { |r| r.office_id }.join ","
+      remaining_path = self.document_type.route.gsub(/^#{current_path},?/, "").split ","
+      if remaining_path.any?
+        Office.find remaining_path.first
+      end
+    end
+  end
 
   private
 
     def generate_tracking_number
-      count = self.class.count
-      tracking_number = nil
-      while !tracking_number or self.class.where(tracking_number: tracking_number).any?
-        count += 1
-        digits = count > 1 ? Math.log10(count) : 1
-        padding = "0" * ([4, digits].max - digits)
-        tracking_number = padding + count.to_s
+      if self.new_record?
+        count = self.class.count
+        tracking_number = nil
+        while !tracking_number or self.class.where(tracking_number: tracking_number).any?
+          count += 1
+          digits = count > 1 ? Math.log10(count) : 1
+          padding = "0" * ([4, digits].max - digits)
+          tracking_number = padding + count.to_s
+        end
+        self.tracking_number = tracking_number
       end
-      self.tracking_number = tracking_number
     end
 end

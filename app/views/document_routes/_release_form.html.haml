@@ -1,0 +1,12 @@
+= form_for route, url: release_document_route_path(route), method: :put, html: { class: "button-group full split-dropdown changeable initially-empty clearfix" } do |f|
+  = f.hidden_field :document_id
+  - if next_route = document.suggested_next_route
+    = f.hidden_field :office_id, value: next_route.id, class: "value-changeable"
+    %button.button.mini.green.label-changeable= "Forward to #{next_route.name}"
+  - else
+    = f.hidden_field :office_id, value: "0", class: "value-changeable"
+    %button.button.mini.green.label-changeable{ "data-ready" => "false" } Select Office
+  %button.button.mini.green.dropdown-trigger{ type: "button" }
+    %ul.dropdown.green
+      - offices.each do |office|
+        %li.dropdown-item.value-changer.label-changer{ "data-value" => office.id, "data-label" => "Forward to #{office.name}" }= office.name

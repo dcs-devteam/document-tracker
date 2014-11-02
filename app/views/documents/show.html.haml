@@ -16,4 +16,32 @@
   - if @document.onhold?
     = link_to "Edit", "#", data: { target: "#edit-document" }, class: "button blue sidebar-trigger"
     = link_to "Delete", document_path(@document), method: :delete, data: { confirm: "Are you sure you want to delete this document?" }, class: "button red"
-    %button.button.green Release Document
+    = render partial: "document_routes/create_form", locals: { route: @route, offices: @offices }
+
+  - else
+    %table
+      %tr
+        %th.wide Office
+        %th.thin Status
+        %th Date In
+        %th Date Out
+        - if current_role == "office"
+          %th.thin Actions
+
+      - @routes.each do |route|
+        %tr
+          %td.wide
+            = route.office.name
+            %span.item-badge.pill-button 10 days
+          %td.thin.center
+            %span{ class: "pill-button #{route_status_indicator(route.status)}" }= route.status
+          %td.center= route.date_in.strftime("%b %e, %Y at %l:%M %P") if route.date_in
+          %td.center= route.date_out.strftime("%b %e, %Y at %l:%M %P") if route.date_out
+          - if current_role == "office"
+            %td.thin.center
+              - if route.incoming?
+                = link_to "Receive", receive_document_route_path(route), method: :put, class: "button mini green"
+              - elsif route.received? and route.office == current_office
+                = render partial: "document_routes/release_form", locals: { route: route, document: @document, offices: @offices }
+                = link_to "Complete", complete_document_route_path(route), method: :put, class: "button mini blue"
+                = link_to "Reject", reject_document_route_path(route), method: :put, class: "button mini red"

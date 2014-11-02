@@ -6,7 +6,7 @@ class DocumentType < ActiveRecord::Base
   scope :by, -> (office) { where(owner_id: office.id) }
   scope :usable_by, -> (office) { defaults.alive + by(office).alive }
 
-  belongs_to :owner
+  belongs_to :owner, class_name: "Owner"
 
   def offices
     offices = []

@@ -1,0 +1,8 @@
+= form_for route, html: { class: "button-group split-dropdown changeable initially-empty" } do |f|
+  = f.hidden_field :document_id
+  = f.hidden_field :office_id, class: "value-changeable"
+  %button.button.green.label-changeable= "Forward to #{route.office.name}"
+  %button.button.green.dropdown-trigger{ type: "button" }
+    %ul.dropdown.green
+      - offices.each do |office|
+        %li.dropdown-item.value-changer.label-changer{ "data-value" => office.id, "data-label" => "Forward to #{office.name}" }= office.name

@@ -6,7 +6,7 @@ class DocumentsController < ApplicationController
   helper_method :has_manage_privileges?
 
   def index
-    @documents = Document.by(current_office).alive
+    @documents = Document.by(current_office).alive.order("-id")
     @document = fake_flash(:document_create) || Document.new
     @flash_document = fake_flash :document_update
   end
@@ -14,6 +14,13 @@ class DocumentsController < ApplicationController
   def show
     @document = Document.find params[:id]
     @flash_document = fake_flash :document_update
+    if @document.onhold?
+      first_route = @document.document_type.offices.first
+      @route = DocumentRoute.new document_id: @document.id, office_id: first_route.id
+    else
+      @routes = @document.document_routes.order("id")
+    end
+    @offices = Office.alive
   end
 
   def create

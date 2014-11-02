@@ -3,7 +3,7 @@ class CreateDocumentTypes < ActiveRecord::Migration
     create_table :document_types do |t|
       t.string :name
       t.string :route
-      t.belongs_to :owner, class_name: "Office"
+      t.references :owner
       t.boolean :erased, default: false
 
       t.timestamps
