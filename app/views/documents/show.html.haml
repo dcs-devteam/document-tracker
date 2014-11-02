@@ -5,13 +5,14 @@
       %h2.subtitle= @document.owner
     %span.tracking-number= "TN: #{@document.tracking_number}"
     .page-actions
-      - if has_manage_privileges?(@document) and current_page?("documents") and !@document.onhold?
+      - if current_page?("documents") and !@document.onhold?
         = link_to "Edit", "#", data: { target: "#edit-document" }, class: "button blue sidebar-trigger"
         = link_to "Delete", document_path(@document), method: :delete, data: { confirm: "Are you sure you want to delete this document?" }, class: "button red"
 
-      #edit-document.hidden
-        %h2.sidebar-title Edit Document
-        = render partial: "documents/update_form", locals: { document: @document }
+      - if current_page?("documents")
+        #edit-document.hidden
+          %h2.sidebar-title Edit Document
+          = render partial: "documents/update_form", locals: { document: @document }
 
   - if @document.onhold?
     = link_to "Edit", "#", data: { target: "#edit-document" }, class: "button blue sidebar-trigger"

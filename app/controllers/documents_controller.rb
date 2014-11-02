@@ -77,10 +77,18 @@ class DocumentsController < ApplicationController
       end
     end
 
+    def has_access_to?(document)
+      return false if document.onhold? and (document.office != current_office or current_role != "office" or controller_path != "documents")
+      return true if document.office == current_office and controller_path == "documents"
+      return true if document.document_routes.map { |r| r.office_id }.include? current_office.id and controller_path == "office/documents"
+      return true if current_office.admin? and current_role == "admin"
+      return false
+    end
+
     def require_access_privileges
       if Document.exists? params[:id]
         document = Document.find params[:id]
-        unless current_role == "admin" or document.accessible_to? current_office
+        unless has_access_to? document
           return redirect_to dashboard_path, alert: "You need to have access privileges for the document to do that action."
         end
       else
