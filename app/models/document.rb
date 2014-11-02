@@ -19,7 +19,7 @@ class Document < ActiveRecord::Base
       tracking_number = nil
       while !tracking_number or self.class.where(tracking_number: tracking_number).any?
         count += 1
-        digits = Math.log10(count)
+        digits = count > 1 ? Math.log10(count) : 1
         padding = "0" * ([4, digits].max - digits)
         tracking_number = padding + count.to_s
       end
