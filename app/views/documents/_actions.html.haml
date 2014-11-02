@@ -1,7 +1,8 @@
 = text_field_tag nil, nil, placeholder: "Filter Documents", data: { target: "documents" }, class: 'filter-field'
 
 .button-group
-  = link_to "With You", current_documents_path(filter: "with_you"), class: "button #{current_filter?("with_you")}"
-  = link_to "Being Processed", current_documents_path(filter: "being_processed"), class: "button #{current_filter?("being_processed")}"
-  = link_to "Completed", current_documents_path(filter: "completed"), class: "button #{current_filter?("completed")}"
-  = link_to "Rejected", current_documents_path(filter: "rejected"), class: "button #{current_filter?("rejected")}"
+  - if current_page?("documents")
+    = link_to "With You", current_documents_path(filter: "with_you"), class: "button #{"highlighted" if current_filter?("with_you")}"
+  = link_to "Being Processed", current_documents_path(filter: "being_processed"), class: "button #{"highlighted" if current_filter?("being_processed")}"
+  = link_to "Completed", current_documents_path(filter: "completed"), class: "button #{"highlighted" if current_filter?("completed")}"
+  = link_to "Rejected", current_documents_path(filter: "rejected"), class: "button #{"highlighted" if current_filter?("rejected")}"

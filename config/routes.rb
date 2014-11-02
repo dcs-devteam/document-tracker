@@ -26,6 +26,7 @@ Rails.application.routes.draw do
       patch :toggle_admin_privilege, on: :member
     end
     resources :document_types, only: [:index, :show, :create, :update, :destroy]
+    resources :documents, only: [:index, :show]
   end
 
   # Example of regular route:

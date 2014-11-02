@@ -1,23 +1,24 @@
 .page
   .page-header
-    %h1.title Your Documents
+    %h1.title= page_title
     .page-actions
       = render "documents/actions"
-      %button.button.blue.sidebar-trigger{ "data-target" => "#create-document" } Create Document
+      - if current_role == "office"
+        %button.button.blue.sidebar-trigger{ "data-target" => "#create-document" } Create Document
 
-      #create-document.hidden
-        %h2.sidebar-title Create Document
-        = render partial: "documents/create_form", locals: { document: @document }
+        #create-document.hidden
+          %h2.sidebar-title Create Document
+          = render partial: "documents/create_form", locals: { document: @document }
 
   %ul.listing{ "data-filter-target" => "documents" }
     - @documents.each do |document|
       %li.list-item
         .tracking-number{ "data-filter-value" => document.tracking_number }= document.tracking_number
-        = link_to document.name, document_path(document), class: "item-label"
+        = link_to document.name, current_document_path(document), class: "item-label"
         - if has_manage_privileges?(document)
           .item-actions
             = link_to "Edit", "#", data: { target: "#edit-document-#{document.id}" }, class: "pill-button sidebar-trigger"
-            = link_to "Delete", document_path(document), method: :delete, data: { confirm: "Are you sure you want to delete this document?" }, class: "pill-button"
+            = link_to "Delete", current_document_path(document), method: :delete, data: { confirm: "Are you sure you want to delete this document?" }, class: "pill-button"
 
             .hidden{ id: "edit-document-#{document.id}" }
               %h2.sidebar-title Edit Document
