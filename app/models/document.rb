@@ -9,7 +9,8 @@ class Document < ActiveRecord::Base
 
   belongs_to :office
   belongs_to :document_type
-  has_many :document_routes
+  has_many :document_routes, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   before_validation :generate_tracking_number
 

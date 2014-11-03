@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     put :reject, on: :member
     put :complete, on: :member
   end
+  resources :comments, only: [:create, :destroy]
 
   namespace :office do
     resources :documents, only: [:index, :show]

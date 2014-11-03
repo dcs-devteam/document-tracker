@@ -5,7 +5,7 @@ class DocumentRoutesController < ApplicationController
   def create
     route = DocumentRoute.create document_route_params
     route.document.pending!
-    redirect_to office_document_path(route.document), notice: "Document forwarded to <strong>#{route.office.name}</strong>."
+    redirect_to document_path(route.document), notice: "Document forwarded to <strong>#{route.office.name}</strong>."
   end
 
   def receive

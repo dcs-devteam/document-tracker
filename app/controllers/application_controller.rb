@@ -12,7 +12,8 @@ class ApplicationController < ActionController::Base
     end
 
     def current_role_code
-      return 1 if current_role == "admin"
+      return 2 if current_role == "admin"
+      return 1 if controller_path == "office/documents"
       return 0
     end
 
@@ -26,6 +27,14 @@ class ApplicationController < ActionController::Base
       if !office_signed_in? or current_role != "office"
         redirect_to dashboard_path, alert: "You need office privileges to do that action."
       end
+    end
+
+    def has_access_to?(document)
+      return false if document.onhold? and controller_path != "documents"
+      return true if document.office == current_office
+      return true if !document.onhold? and document.accessible_to? current_office
+      return true if current_office.admin? and current_role == "admin"
+      return false
     end
 
     def fake_flash(key, value = nil)

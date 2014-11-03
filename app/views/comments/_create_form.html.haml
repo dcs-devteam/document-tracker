@@ -1,0 +1,10 @@
+= form_for comment do |f|
+  = render partial: "partials/form_errors", locals: { object: comment }
+
+  .field
+    = f.text_area :body, placeholder: "Write your comment..."
+
+  .field.actions
+    = f.hidden_field :document_id
+    = f.hidden_field :user_role
+    = f.submit "Post Comment", class: "button blue"

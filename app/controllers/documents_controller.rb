@@ -33,6 +33,7 @@ class DocumentsController < ApplicationController
       @routes = @document.document_routes.order("id")
     end
     @offices = Office.alive
+    @comment = fake_flash(:comment_create) || Comment.new(document_id: @document.id, user_role: current_role_code)
   end
 
   def create
@@ -73,26 +74,18 @@ class DocumentsController < ApplicationController
     def require_manage_privileges
       document = Document.find params[:id]
       unless has_manage_privileges? document
-        return redirect_to :back, alert: "You need to have manage privileges for the document to do that action."
+        redirect_to :back, alert: "You need to have manage privileges for the document to do that action."
       end
-    end
-
-    def has_access_to?(document)
-      return false if document.onhold? and (document.office != current_office or current_role != "office" or controller_path != "documents")
-      return true if document.office == current_office and controller_path == "documents"
-      return true if document.document_routes.map { |r| r.office_id }.include? current_office.id and controller_path == "office/documents"
-      return true if current_office.admin? and current_role == "admin"
-      return false
     end
 
     def require_access_privileges
       if Document.exists? params[:id]
         document = Document.find params[:id]
         unless has_access_to? document
-          return redirect_to dashboard_path, alert: "You need to have access privileges for the document to do that action."
+          redirect_to dashboard_path, alert: "You need to have access privileges for the document to do that action."
         end
       else
-        return redirect_to dashboard_path, alert: "The requested document does not exist."
+        redirect_to dashboard_path, alert: "The requested document does not exist."
       end
     end
 end

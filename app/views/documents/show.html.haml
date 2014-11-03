@@ -47,3 +47,27 @@
                   = render partial: "document_routes/release_form", locals: { route: route, document: @document, offices: @offices }
                   = link_to "Complete", complete_document_route_path(route), method: :put, class: "button mini blue"
                   = link_to "Reject", reject_document_route_path(route), method: :put, class: "button mini red"
+
+  %section.page-section
+    %h2.section-title Comments
+    %ul.listing
+      - @document.comments.alive.each do |comment|
+        %li.list-item.comment
+          %header
+            %h5= comment.office.name
+            - if comment.as_staff?
+              %span.pill-button.blue Staff
+            - elsif comment.as_admin?
+              %span.pill-button.red Admin
+            .comment-meta
+              %time= comment.created_at.strftime("%b %e")
+              - if has_manage_privileges?(comment)
+                = link_to "Delete", comment_path(comment), method: :delete, data: { confirm: "Are you sure you want to delete this comment?" }, class: "pill-button"
+          %p= comment.body
+
+      - if @document.comments.alive.empty?
+        %li.empty-listing No comments found.
+
+  %section.page-section
+    %h2.section-title Add Comment
+    = render partial: "comments/create_form", locals: { comment: @comment }
