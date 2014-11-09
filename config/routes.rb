@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   get "/dashboard", to: "dashboard#index", as: "dashboard"
   post "/switch/:role", to: "dashboard#switch", as: "switch"
+  patch "/seen-notifications", to: "ajax#seen_notifications", as: "seen_notifications"
+  get "/poll-notifications", to: "ajax#poll_notifications", as: "poll_notifications"
 
   resources :document_types, only: [:index, :show, :create, :update, :destroy]
   resources :office_staffs, only: [:index, :create, :update, :destroy]

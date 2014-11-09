@@ -7,4 +7,12 @@ class Comment < ActiveRecord::Base
 
   belongs_to :office
   belongs_to :document
+
+  after_create :notify
+
+  private
+
+    def notify
+      Notification.comment self
+    end
 end

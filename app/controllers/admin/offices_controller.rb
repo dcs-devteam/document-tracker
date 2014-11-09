@@ -32,6 +32,7 @@ class Admin::OfficesController < ApplicationController
       return redirect_to admin_offices_path, alert: "Only other admin accounts can grant/revoke your admin privileges."
     end
     office.toggle_admin!
+    Notification.toggle_admin office
     redirect_to admin_offices_path
   end
 

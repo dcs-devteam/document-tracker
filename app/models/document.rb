@@ -37,6 +37,13 @@ class Document < ActiveRecord::Base
     self.office == office or self.document_routes.map { |r| r.office_id }.include? office.id
   end
 
+  def involved_offices
+    offices = [[self.office, :office]]
+    self.document_routes.map { |r| offices << [r.office, :staff] }
+    self.comments.where(user_role: 2).map { |c| offices << [c.office, :admin] }
+    offices.uniq
+  end
+
   private
 
     def generate_tracking_number

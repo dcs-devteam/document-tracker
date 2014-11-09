@@ -12,12 +12,12 @@
 
     .current-user.button-group.split-dropdown
       %span.button= current_office.name
-      - notifications = []
-      - unseen_notifications = []
-      %span#notifications{ class: "button dropdown-trigger", "data-count" => 10, "data-last" => notifications.any? ? notifications.last.id : 0 }
+      - notifications = current_office.notifications.where(role: current_role_code)
+      - unseen_notifications = notifications.where(seen: false)
+      %span#notifications{ class: "button dropdown-trigger #{unseen_notifications.any? ? "notify" : ""}", "data-count" => unseen_notifications.count, "data-url" => seen_notifications_path, "data-poll-url" => poll_notifications_path, "data-last" => notifications.any? ? notifications.last.id : 0 }
         %ul.dropdown
-          / - unseen_notifications.order("-id").each do |notification|
-          /   %li= link_to notification.body.html_safe, notification.link, data: { id: notification.id }, class: "dropdown-item"
+          - unseen_notifications.order("-id").each do |notification|
+            %li= link_to notification.body.html_safe, notification.link, data: { id: notification.id }, class: "dropdown-item"
           - if unseen_notifications.empty?
             %li.dropdown-item.no-notifications You have no notifications
       %span.button.dropdown-trigger
