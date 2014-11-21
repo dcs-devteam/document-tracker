@@ -1,0 +1,28 @@
+.page
+  .page-header
+    %h1.title= "#{@date.strftime("%B %d, %Y")} Statistics"
+    .page-actions
+      = link_to "Previous Date", "?date=#{@date.yesterday.strftime("%d-%m-%Y")}", class: "button blue"
+      = link_to "Next Date", "?date=#{@date.tomorrow.strftime("%d-%m-%Y")}", class: "button blue"
+
+  %table
+    %tr
+      %th.extra-wide Office Name
+      %th.thin Being Processed
+      %th.thin Completed
+      %th.thin Rejected
+
+    - @offices.each do |office|
+      %tr
+        %td.extra-wide
+          = office.name
+          %span.item-badge.pill-button 10 days
+        %td.thin.center= office.documents.where("status = 1 AND DATE(created_at) = DATE(:date)", { date: @date }).count
+        %td.thin.center= office.documents.where("status = 2 AND DATE(created_at) = DATE(:date)", { date: @date }).count
+        %td.thin.center= office.documents.where("status = 3 AND DATE(created_at) = DATE(:date)", { date: @date }).count
+
+    %tr
+      %th.extra-wide.left Total
+      %th.thin.center= @total_pending
+      %th.thin.center= @total_completed
+      %th.thin.center= @total_rejected

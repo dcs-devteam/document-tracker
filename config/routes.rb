@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     end
     resources :document_types, only: [:index, :show, :create, :update, :destroy]
     resources :documents, only: [:index, :show]
+    resources :statistics, only: [:index]
   end
 
   # Example of regular route:
