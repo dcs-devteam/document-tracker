@@ -1,5 +1,5 @@
 %div{ style: "font: normal 14px/1 Arial; color: #333" }
-  %p= "Hi #{@user.fullname}!"
+  %p= "Hi #{@account.name}!"
 
   %p Welcome to Document Tracker.
 
@@ -7,7 +7,7 @@
   %p
     %label
       %span{ style: "display: inline-block; width: 75px;" } Email:
-      = @user.email
+      = @account.email
 
   %p
     %label
