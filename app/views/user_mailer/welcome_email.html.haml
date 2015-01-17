@@ -1,0 +1,19 @@
+%div{ style: "font: normal 14px/1 Arial; color: #333" }
+  %p= "Hi #{@user.fullname}!"
+
+  %p Welcome to Document Tracker.
+
+  %p To start using the system, please login to your account.
+  %p
+    %label
+      %span{ style: "display: inline-block; width: 75px;" } Email:
+      = @user.email
+
+  %p
+    %label
+      %span{ style: "display: inline-block; width: 75px;" } Password:
+      = @password
+
+  %p= link_to "Login to Account", root_url
+
+  %p{ style: "color: #777" } Note: Upon logging in, please update your account credentials.
