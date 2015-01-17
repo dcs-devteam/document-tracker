@@ -1,5 +1,5 @@
 Office.create(
-  name: "Department Of Computer Science",
+  name: "Document Tracker",
   email: "arnellebalane@gmail.com",
   password: "password",
   admin: true
