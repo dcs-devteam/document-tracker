@@ -8,23 +8,42 @@
       = link_to "Next Date", "?date=#{@date.tomorrow.strftime("%d-%m-%Y")}", class: "button blue"
 
   %table
+    %tr.head-row
+      %td.extra-wide &nbsp;
+      %td.center{ colspan: 3 } Own Documents
+      %td.center{ colspan: 5 } Routed Documents
     %tr
       %th.extra-wide Office Name
-      %th.thin Being Processed
-      %th.thin Completed
-      %th.thin Rejected
+      %th Being Processed
+      %th Completed
+      %th Rejected
+      %th Incoming
+      %th Being Processed
+      %th Released
+      %th Completed
+      %th Rejected
 
     - @offices.each do |office|
       %tr
         %td.extra-wide
           = office.name
           %span.item-badge.pill-button 10 days
-        %td.thin.center= office.documents.where("status = 1 AND DATE(created_at) = DATE(:date)", { date: @date }).count
-        %td.thin.center= office.documents.where("status = 2 AND DATE(created_at) = DATE(:date)", { date: @date }).count
-        %td.thin.center= office.documents.where("status = 3 AND DATE(created_at) = DATE(:date)", { date: @date }).count
+        %td.center= office.documents.where("status = 1 AND DATE(created_at) = DATE(:date)", { date: @date }).count
+        %td.center= office.documents.where("status = 2 AND DATE(created_at) = DATE(:date)", { date: @date }).count
+        %td.center= office.documents.where("status = 3 AND DATE(created_at) = DATE(:date)", { date: @date }).count
+        %td.center= office.document_routes.where("status = 0 AND DATE(created_at) = DATE(:date)", { date: @date }).count
+        %td.center= office.document_routes.where("status = 1 AND DATE(created_at) = DATE(:date)", { date: @date }).count
+        %td.center= office.document_routes.where("status = 2 AND DATE(created_at) = DATE(:date)", { date: @date }).count
+        %td.center= office.document_routes.where("status = 4 AND DATE(created_at) = DATE(:date)", { date: @date }).count
+        %td.center= office.document_routes.where("status = 3 AND DATE(created_at) = DATE(:date)", { date: @date }).count
 
     %tr
       %th.extra-wide.left Total
-      %th.thin.center= @total_pending
-      %th.thin.center= @total_completed
-      %th.thin.center= @total_rejected
+      %th.center= @own_total_pending
+      %th.center= @own_total_completed
+      %th.center= @own_total_rejected
+      %th.center= @routed_total_incoming
+      %th.center= @routed_total_pending
+      %th.center= @routed_total_released
+      %th.center= @routed_total_completed
+      %th.center= @routed_total_rejected
