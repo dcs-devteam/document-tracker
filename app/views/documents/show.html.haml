@@ -33,7 +33,7 @@
         %tr
           %td.wide
             = route.office.name
-            %span.item-badge.pill-button 10 days
+            %span.item-badge.pill-button= route.office.turnaround_time
           %td.thin.center
             %span{ class: "pill-button #{route_status_indicator(route.status)}" }= route.status
           %td.center= route.date_in.strftime("%b %e, %Y at %l:%M %P") if route.date_in

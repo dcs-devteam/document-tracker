@@ -27,7 +27,7 @@
       %tr
         %td.extra-wide
           = office.name
-          %span.item-badge.pill-button 10 days
+          %span.item-badge.pill-button= office.turnaround_time
         %td.center= office.documents.where("status = 1 AND DATE(created_at) = DATE(:date)", { date: @date }).count
         %td.center= office.documents.where("status = 2 AND DATE(created_at) = DATE(:date)", { date: @date }).count
         %td.center= office.documents.where("status = 3 AND DATE(created_at) = DATE(:date)", { date: @date }).count

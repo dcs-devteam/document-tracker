@@ -11,7 +11,9 @@
   %ul.listing
     - @offices.each do |office|
       %li.list-item
-        = link_to office.name, "#", class: "item-label"
+        = link_to "#", class: "item-label" do
+          = office.name
+          %span.item-badge.pill-button= office.turnaround_time
         .item-actions
           = link_to "Admin", toggle_admin_privilege_admin_office_path(office), method: :patch, class: "pill-button #{admin_button_class(office)}"
           = link_to "Edit", "#", data: { target: "#edit-office-#{office.id}" }, class: "pill-button sidebar-trigger"
