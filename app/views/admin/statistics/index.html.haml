@@ -2,6 +2,8 @@
   .page-header
     %h1.title= "#{@date.strftime("%B %d, %Y")} Statistics"
     .page-actions
+      = form_tag admin_statistics_path, method: :get do |f|
+        = text_field_tag "date", nil, placeholder: "Search Date", class: "filter-field"
       = link_to "Previous Date", "?date=#{@date.yesterday.strftime("%d-%m-%Y")}", class: "button blue"
       = link_to "Next Date", "?date=#{@date.tomorrow.strftime("%d-%m-%Y")}", class: "button blue"
 
