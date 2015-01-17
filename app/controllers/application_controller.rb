@@ -30,9 +30,9 @@ class ApplicationController < ActionController::Base
     end
 
     def has_access_to?(document)
-      return false if document.onhold? and controller_path != "documents"
       return true if document.office == current_office
-      return true if !document.onhold? and document.accessible_to? current_office
+      return false if document.onhold?
+      return true if document.accessible_to? current_office
       return true if current_office.admin? and current_role == "admin"
       return false
     end
