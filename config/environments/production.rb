@@ -81,7 +81,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Devise asked me to add this
-  config.action_mailer.default_url_options = { host: 'documenttracker-staging.herokuap.com' }
+  config.action_mailer.default_url_options = { host: 'document-tracker.herokuap.com' }
 
   # Gmail smtp settings for action_mailer
   config.action_mailer.delivery_method = :smtp
@@ -90,7 +90,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,
-    domain: "documenttracker-staging.herokuapp.com",
+    domain: "document-tracker.herokuapp.com",
     user_name: "documentracker@gmail.com",
     password: "document500tracker",
     authentication: "plain",

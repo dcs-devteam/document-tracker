@@ -11,7 +11,7 @@ class RegistrationsController < Devise::RegistrationsController
     if resource_saved
       flash[:notice] = "User account successfully created." if is_flashing_format?
       UserMailer.welcome_email(resource, resource.password).deliver
-      respond_with resource, location: admin_user_accounts_path
+      respond_with resource, location: admin_offices_path
     else
       clean_up_passwords resource
       @validatable = devise_mapping.validatable?
