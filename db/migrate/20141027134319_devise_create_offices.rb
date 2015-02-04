@@ -8,6 +8,7 @@ class DeviseCreateOffices < ActiveRecord::Migration
       ## Additional fields
       t.string :name
       t.boolean :admin, default: false
+      t.boolean :superadmin, default: false
       t.boolean :erased, default: false
 
       ## Recoverable

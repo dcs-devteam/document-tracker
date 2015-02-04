@@ -38,7 +38,7 @@
         %td.center= office.document_routes.where("status = 3 AND DATE(created_at) = DATE(:date)", { date: @date }).count
 
     %tr
-      %th.extra-wide.left Total
+      %th.extra-wide.left Daily Total
       %th.center= @own_total_pending
       %th.center= @own_total_completed
       %th.center= @own_total_rejected
@@ -47,3 +47,17 @@
       %th.center= @routed_total_released
       %th.center= @routed_total_completed
       %th.center= @routed_total_rejected
+
+    %tr
+      %th.extra-wide.left 
+        Accumulated Total
+        - if current_office.superadmin?
+          = link_to "Reset Total", "#", class: "button mini red", data: { confirm: "Are you sure you want to reset the accumulated total?" }
+      %th.center= @accumulated_own_pending
+      %th.center= @accumulated_own_completed
+      %th.center= @accumulated_own_rejected
+      %th.center= @accumulated_routed_incoming
+      %th.center= @accumulated_routed_pending
+      %th.center= @accumulated_routed_released
+      %th.center= @accumulated_routed_completed
+      %th.center= @accumulated_routed_rejected

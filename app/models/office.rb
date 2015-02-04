@@ -23,6 +23,10 @@ class Office < ActiveRecord::Base
     self.admin
   end
 
+  def superadmin?
+    self.superadmin
+  end
+
   def toggle_admin!
     self.update! admin: !self.admin
   end
