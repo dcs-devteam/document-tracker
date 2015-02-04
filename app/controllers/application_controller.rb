@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :current_role, :current_role_code
+  helper_method :current_role, :current_role_code, :timezone
 
   protected
 
@@ -15,6 +15,10 @@ class ApplicationController < ActionController::Base
       return 2 if current_role == "admin"
       return 1 if controller_path == "office/documents"
       return 0
+    end
+
+    def timezone
+      'Taipei'
     end
 
     def require_admin_access

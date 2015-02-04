@@ -36,8 +36,8 @@
             %span.item-badge.pill-button= route.office.turnaround_time
           %td.thin.center
             %span{ class: "pill-button #{route_status_indicator(route.status)}" }= route.status
-          %td.center= route.date_in.strftime("%b %e, %Y at %l:%M %P") if route.date_in
-          %td.center= route.date_out.strftime("%b %e, %Y at %l:%M %P") if route.date_out
+          %td.center= route.date_in.in_time_zone(timezone).strftime("%b %e, %Y at %l:%M %P") if route.date_in
+          %td.center= route.date_out.in_time_zone(timezone).strftime("%b %e, %Y at %l:%M %P") if route.date_out
           - if current_page?("office/documents")
             %td.thin.center
               - if route.office == current_office
