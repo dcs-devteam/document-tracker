@@ -2,7 +2,8 @@ Office.create(
   name: "Document Tracker",
   email: "arnellebalane@gmail.com",
   password: "password",
-  admin: true
+  admin: true,
+  superadmin: true
 );
 
 # Office.create(
