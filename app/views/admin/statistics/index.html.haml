@@ -52,7 +52,7 @@
       %th.extra-wide.left 
         Accumulated Total
         - if current_office.superadmin?
-          = link_to "Reset Total", "#", class: "button mini red", data: { confirm: "Are you sure you want to reset the accumulated total?" }
+          = link_to "Reset Total", admin_office_meta_path(key: "reset-date"), class: "button mini red", method: :post, data: { confirm: "Are you sure you want to reset the accumulated total?" }
       %th.center= @accumulated_own_pending
       %th.center= @accumulated_own_completed
       %th.center= @accumulated_own_rejected

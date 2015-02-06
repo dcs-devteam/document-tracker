@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     resources :document_types, only: [:index, :show, :create, :update, :destroy]
     resources :documents, only: [:index, :show]
     resources :statistics, only: [:index]
+    post 'create-or-update/:key', to: 'office_metas#create_or_update', as: 'office_meta'
   end
 
   # Example of regular route:
