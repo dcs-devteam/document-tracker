@@ -39,8 +39,8 @@ class CommentsController < ApplicationController
     end
 
     def require_access_privileges
-      if Document.exists? params[:comment][:document_id]
-        document = Document.find params[:comment][:document_id]
+      if Document.exists? params[:id]
+        document = Document.find params[:id]
         unless has_access_to? document
           redirect_to dashboard_path, alert: "You need to have access privileges for the document to do that action."
         end
