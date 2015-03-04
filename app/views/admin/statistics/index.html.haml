@@ -1,63 +1,68 @@
-.page
-  .page-header
-    %h1.title= "#{@date.strftime("%B %d, %Y")} Statistics"
-    .page-actions
-      = form_tag admin_statistics_path, method: :get do |f|
-        = text_field_tag "date", nil, placeholder: "Search Date", class: "filter-field"
-      = link_to "Previous Date", "?date=#{@date.yesterday.strftime("%d-%m-%Y")}", class: "button blue"
-      = link_to "Next Date", "?date=#{@date.tomorrow.strftime("%d-%m-%Y")}", class: "button blue"
+- if @no_offices
+  .page
+    .page-header
+      %h1.title Statistics is currently not available.
+- else
+  .page
+    .page-header
+      %h1.title= "#{@date.strftime("%B %d, %Y")} Statistics"
+      .page-actions
+        = form_tag admin_statistics_path, method: :get do |f|
+          = text_field_tag "date", nil, placeholder: "Search Date", class: "filter-field"
+        = link_to "Previous Date", "?date=#{@date.yesterday.strftime("%d-%m-%Y")}", class: "button blue"
+        = link_to "Next Date", "?date=#{@date.tomorrow.strftime("%d-%m-%Y")}", class: "button blue"
 
-  %table
-    %tr.head-row
-      %td.extra-wide &nbsp;
-      %td.center{ colspan: 3 } Own Documents
-      %td.center{ colspan: 5 } Routed Documents
-    %tr
-      %th.extra-wide Office Name
-      %th Being Processed
-      %th Completed
-      %th Rejected
-      %th Incoming
-      %th Being Processed
-      %th Released
-      %th Completed
-      %th Rejected
-
-    - @offices.each do |office|
+    %table
+      %tr.head-row
+        %td.extra-wide &nbsp;
+        %td.center{ colspan: 3 } Own Documents
+        %td.center{ colspan: 5 } Routed Documents
       %tr
-        %td.extra-wide
-          = office.name
-          %span.item-badge.pill-button= office.turnaround_time
-        %td.center= office.documents.where("status = 1 AND DATE(created_at) = DATE(:date)", { date: @date }).count
-        %td.center= office.documents.where("status = 2 AND DATE(created_at) = DATE(:date)", { date: @date }).count
-        %td.center= office.documents.where("status = 3 AND DATE(created_at) = DATE(:date)", { date: @date }).count
-        %td.center= office.document_routes.where("status = 0 AND DATE(created_at) = DATE(:date)", { date: @date }).count
-        %td.center= office.document_routes.where("status = 1 AND DATE(created_at) = DATE(:date)", { date: @date }).count
-        %td.center= office.document_routes.where("status = 2 AND DATE(created_at) = DATE(:date)", { date: @date }).count
-        %td.center= office.document_routes.where("status = 4 AND DATE(created_at) = DATE(:date)", { date: @date }).count
-        %td.center= office.document_routes.where("status = 3 AND DATE(created_at) = DATE(:date)", { date: @date }).count
+        %th.extra-wide Office Name
+        %th Being Processed
+        %th Completed
+        %th Rejected
+        %th Incoming
+        %th Being Processed
+        %th Released
+        %th Completed
+        %th Rejected
 
-    %tr
-      %th.extra-wide.left Daily Total
-      %th.center= @own_total_pending
-      %th.center= @own_total_completed
-      %th.center= @own_total_rejected
-      %th.center= @routed_total_incoming
-      %th.center= @routed_total_pending
-      %th.center= @routed_total_released
-      %th.center= @routed_total_completed
-      %th.center= @routed_total_rejected
+      - @offices.each do |office|
+        %tr
+          %td.extra-wide
+            = office.name
+            %span.item-badge.pill-button= office.turnaround_time
+          %td.center= office.documents.where("status = 1 AND DATE(created_at) = DATE(:date)", { date: @date }).count
+          %td.center= office.documents.where("status = 2 AND DATE(created_at) = DATE(:date)", { date: @date }).count
+          %td.center= office.documents.where("status = 3 AND DATE(created_at) = DATE(:date)", { date: @date }).count
+          %td.center= office.document_routes.where("status = 0 AND DATE(created_at) = DATE(:date)", { date: @date }).count
+          %td.center= office.document_routes.where("status = 1 AND DATE(created_at) = DATE(:date)", { date: @date }).count
+          %td.center= office.document_routes.where("status = 2 AND DATE(created_at) = DATE(:date)", { date: @date }).count
+          %td.center= office.document_routes.where("status = 4 AND DATE(created_at) = DATE(:date)", { date: @date }).count
+          %td.center= office.document_routes.where("status = 3 AND DATE(created_at) = DATE(:date)", { date: @date }).count
 
-    %tr
-      %th.extra-wide.left 
-        Accumulated Total
-        - if current_office.superadmin?
-          = link_to "Reset Total", admin_office_meta_path(key: "reset-date"), class: "button mini red", method: :post, data: { confirm: "Are you sure you want to reset the accumulated total?" }
-      %th.center= @accumulated_own_pending
-      %th.center= @accumulated_own_completed
-      %th.center= @accumulated_own_rejected
-      %th.center= @accumulated_routed_incoming
-      %th.center= @accumulated_routed_pending
-      %th.center= @accumulated_routed_released
-      %th.center= @accumulated_routed_completed
-      %th.center= @accumulated_routed_rejected
+      %tr
+        %th.extra-wide.left Daily Total
+        %th.center= @own_total_pending
+        %th.center= @own_total_completed
+        %th.center= @own_total_rejected
+        %th.center= @routed_total_incoming
+        %th.center= @routed_total_pending
+        %th.center= @routed_total_released
+        %th.center= @routed_total_completed
+        %th.center= @routed_total_rejected
+
+      %tr
+        %th.extra-wide.left 
+          Accumulated Total
+          - if current_office.superadmin?
+            = link_to "Reset Total", admin_office_meta_path(key: "reset-date"), class: "button mini red", method: :post, data: { confirm: "Are you sure you want to reset the accumulated total?" }
+        %th.center= @accumulated_own_pending
+        %th.center= @accumulated_own_completed
+        %th.center= @accumulated_own_rejected
+        %th.center= @accumulated_routed_incoming
+        %th.center= @accumulated_routed_pending
+        %th.center= @accumulated_routed_released
+        %th.center= @accumulated_routed_completed
+        %th.center= @accumulated_routed_rejected
