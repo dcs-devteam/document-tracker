@@ -1,10 +1,10 @@
 module DocumentsHelper
   def document_types_options
-    DocumentType.usable_by(current_office).map { |t| [t.name, t.id] }
+    DocumentType.order(:name).usable_by(current_office).map { |t| [t.name, t.id] }
   end
 
   def office_staffs_options
-    current_office.office_staffs.order("id").map { |s| [s.name, s.name] }
+    current_office.office_staffs.order(:name).map { |s| [s.name, s.name] }
   end
 
   def route_status_indicator(status)

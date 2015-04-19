@@ -8,6 +8,6 @@ module DocumentTypesHelper
   end
 
   def offices_options
-    Office.alive.map { |o| [o.name, o.id] }
+    Office.alive.order(:name).map { |o| [o.name, o.id] }
   end
 end
