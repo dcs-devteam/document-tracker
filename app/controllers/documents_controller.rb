@@ -32,7 +32,7 @@ class DocumentsController < ApplicationController
     else
       @routes = @document.document_routes.order("id")
     end
-    @offices = Office.alive
+    @offices = Office.alive.order(:name)
     @comment = fake_flash(:comment_create) || Comment.new(document_id: @document.id, user_role: current_role_code)
   end
 
